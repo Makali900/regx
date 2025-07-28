@@ -1,82 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Regex Trap Lab - Project R</title>
+  <meta charset="UTF-8">
+  <title>DOM XSS - innerHTML via user input</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f4f4f4;
     }
     h1 {
-      text-align: center;
-      color: #cc0000;
+      color: #b30000;
     }
-    pre {
-      background: #222;
-      color: #0f0;
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    #output {
+      margin-top: 30px;
       padding: 15px;
-      border-radius: 8px;
-      overflow-x: auto;
-    }
-    .section {
-      margin-bottom: 30px;
+      border: 2px dashed #b30000;
+      background: #fff5f5;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Regex Trap - Project R</h1>
 
-    <div class="section">
-      <h2>🔐 Hidden JavaScript Token</h2>
-      <script>
-        // Only Regex can extract this token
-        var userToken = "RgxT0k3n-9834a8sd-SECRET";
-        var profile = {"user": "admin", "role": "superuser"};
-      </script>
-    </div>
+  <h1>🔥 DOM XSS Demo: innerHTML via User Input</h1>
 
-    <div class="section">
-      <h2>🧾 Log Dump in &lt;pre&gt; Block</h2>
-      <pre>
-Timestamp: 2025-07-08 13:45:01
-User: johndoe@example.com
-Pass: 4dm1n@1234
-Session: s3ss10n_k3y_abc987
-      </pre>
-    </div>
 
-    <div class="section">
-      <h2>📦 Encoded Data in Attribute</h2>
-      <div id="data-box" data-info="eyJrZXkiOiAic2VjcmV0X3ZhbHVlIn0=">Hover over me</div>
-    </div>
+  <input id="userInput" type="text" placeholder="Enter search..." />
+  <button onclick="handleInput()">Search</button>
 
-    <div class="section">
-      <h2>🚧 Broken HTML Element</h2>
-      <div>
-        <span>Broken tag starts here
-        <b>Some <i>important data<b>
-      </div>
-    </div>
+  <div id="output">Your result will show here...</div>
 
-    <div class="section">
-      <h2>📄 Embedded JSON in &lt;script&gt;</h2>
-      <script type="application/json">
-        {"api_key": "regex-12345-xyz", "env": "staging"}
-      </script>
-    </div>
-  </div>
+  <script>
+    function handleInput() {
+      const query = document.getElementById("userInput").value;
+      // VULNERABLE SINK (innerHTML)
+      document.getElementById("output").innerHTML = query;
+    }
+  </script>
+
 </body>
 </html>
