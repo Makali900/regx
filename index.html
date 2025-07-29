@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DOM Redirect - window.location = input</title>
+  <title>DOM XSS - document.location Sink</title>
 </head>
 <body>
-  <h2>DOM Redirect Lab</h2>
-  <p>If a redirect URL is found, you'll be redirected in 2 seconds...</p>
+  <h2>Welcome to Vulnerable Page</h2>
+  <p id="output"></p>
 
   <script>
-    const input = decodeURIComponent(location.hash.slice(1));
-    setTimeout(() => {
-      window.location = input;
-    }, 2000);
+    // VULNERABILITY: Directly writing document.location to the DOM
+    document.getElementById("output").innerHTML = document.location;
   </script>
 </body>
 </html>
