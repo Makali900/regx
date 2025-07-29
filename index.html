@@ -7,10 +7,13 @@
 <body>
   <h2>Welcome to Vulnerable Page</h2>
   <p id="output"></p>
-
+  <input type="text" id="userInput">
   <script>
     // VULNERABILITY: Directly writing document.location to the DOM
-    document.getElementById("output").innerHTML = document.location;
+    window.onload = function() {
+
+      document.getElementById("output").innerHTML = document.location;
+    };
   </script>
 </body>
 </html>
