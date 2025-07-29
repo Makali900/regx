@@ -1,56 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DOM XSS - innerHTML via user input</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background: #f4f4f4;
-    }
-    h1 {
-      color: #b30000;
-    }
-    input[type="text"] {
-      padding: 10px;
-      width: 300px;
-      font-size: 16px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #ff4d4d;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-    #output {
-      margin-top: 30px;
-      padding: 15px;
-      border: 2px dashed #b30000;
-      background: #fff5f5;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <title>DOM XSS - document.write()</title>
 </head>
 <body>
-
-  <h1>🔥 DOM XSS Demo: innerHTML via User Input</h1>
-
-
-  <input id="userInput" type="text" placeholder="Enter search..." />
-  <button onclick="handleInput()">Search</button>
-
-  <div id="output">Your result will show here...</div>
+  <h2>DOM XSS Example: document.write()</h2>
+  <p>Enter something:</p>
+  <input type="text" id="userInput" />
+  <button onclick="reflectInput()">Submit</button>
 
   <script>
-    function handleInput() {
-      const query = document.getElementById("userInput").value;
-      // VULNERABLE SINK (innerHTML)
-      document.getElementById("output").innerHTML = query;
+    function reflectInput() {
+      const input = document.getElementById("userInput").value;
+      document.write("You entered: " + input);
     }
   </script>
-
 </body>
 </html>
