@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>DOM XSS - document.write()</title>
+  <meta charset="UTF-8">
+  <title>DOM XSS - location.hash + document.write</title>
 </head>
 <body>
-  <h2>DOM XSS Example: document.write()</h2>
-  <p>Enter something:</p>
-  <input type="text" id="userInput" />
-  <button onclick="reflectInput()">Submit</button>
+  <h2>Welcome to DOM XSS Lab #3</h2>
+  <p>Check the URL hash to change message</p>
 
   <script>
-    function reflectInput() {
-      const input = document.getElementById("userInput").value;
-      document.write("You entered: " + input);
-    }
+    const hash = decodeURIComponent(location.hash.slice(1)); // decode the hash
+    document.write("Message: " + hash);
   </script>
 </body>
 </html>
