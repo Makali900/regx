@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>DOM XSS - document.location Sink</title>
-</head>
-<body>
-  <h2>Welcome to Vulnerable Page</h2>
-  <p id="output"></p>
-  <input type="text" id="userInput">
-  <script>
-    // VULNERABILITY: Directly writing document.location to the DOM
-    window.onload = function() {
+<html>
+  <head>
+    <title>Vulnerable Page 2 - setAttribute</title>
+  </head>
+  <body>
+    <h2>Welcome to Vulnerable Page #2</h2>
+    <img id="profile" src="default.jpg" alt="User Image" width="200">
 
-      document.getElementById("output").innerHTML = document.location;
-    };
-  </script>
-</body>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const attr = params.get("attr");
+      const val = params.get("val");
+
+      const img = document.getElementById("profile");
+      img.setAttribute(attr, val);
+    </script>
+  </body>
 </html>
